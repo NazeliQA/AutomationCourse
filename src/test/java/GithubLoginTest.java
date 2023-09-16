@@ -7,7 +7,18 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class GithubLoginTest {
-    //This method validates that login is successful with correct data on Google
+
+    /**
+     * This method is validating that user cannot log in with correct credentials.
+     *
+     * Steps:
+     *  1. Open https://github.com/login page
+     *  2. Input valid email
+     *  3. Input valid password
+     *  4. Click on 'Sign In' button
+     *  5. Validate user is logged in successfully
+     */
+
     @Test
     public void positiveLoginTestGoogle () {
         System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
@@ -25,7 +36,18 @@ public class GithubLoginTest {
 
         driver.quit();
     }
-    //This method validates that login is successful with correct data on Firefox
+
+    /**
+     * This method is validating that user cannot log in with correct credentials.
+     *
+     * Steps:
+     *  1. Open https://github.com/login page
+     *  2. Input valid email
+     *  3. Input valid password
+     *  4. Click on 'Sign In' button
+     *  5. Validate user is logged in successfully
+     */
+
     @Test
     public void positiveLoginTestFirefox () {
         System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
@@ -43,7 +65,18 @@ public class GithubLoginTest {
 
         driver.quit();
     }
-    //This method validates that login is not successful with incorrect data on Google
+
+    /**
+     * This method is validating that user cannot log in with wrong credentials.
+     *
+     * Steps:
+     *  1. Open https://github.com/login page
+     *  2. Input valid email
+     *  3. Input wrong password
+     *  4. Click on 'Sign In' button
+     *  5. Validate user is not logged in and "Incorrect username or password." error is displayed
+     */
+
     @Test
     public void LoginTestWithWrongCredsGoogle () {
         System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
@@ -61,7 +94,18 @@ public class GithubLoginTest {
 
         driver.quit();
     }
-    //This method validates that login is not successful with incorrect data on Firefox
+
+    /**
+     * This method is validating that user cannot log in with wrong credentials.
+     *
+     * Steps:
+     *  1. Open https://github.com/login page
+     *  2. Input valid email
+     *  3. Input wrong password
+     *  4. Click on 'Sign In' button
+     *  5. Validate user is not logged in and "Incorrect username or password." error is displayed
+     */
+
     @Test
     public void LoginTestWithWrongCredsFirefox () {
         System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
@@ -79,7 +123,16 @@ public class GithubLoginTest {
 
         driver.quit();
     }
-    //This method validates that login is not successful with empty password on Google
+
+    /**
+     * This method is validating that user cannot log in with empty password.
+     *
+     * Steps:
+     *  1. Open https://github.com/login page
+     *  2. Input valid email
+     *  3. Click on 'Sign In' button
+     *  4. Validate user is not logged in and "Password field is empty" error is displayed
+     */
 
     @Test
     public void LoginTestWithEmptyPasswordGoogle () {
@@ -104,7 +157,17 @@ public class GithubLoginTest {
 
         driver.quit();
     }
-    //This method validates that login is not successful with empty password on Firefox
+
+    /**
+     * This method is validating that user cannot log in with empty password.
+     *
+     * Steps:
+     *  1. Open https://github.com/login page
+     *  2. Input valid email
+     *  3. Click on 'Sign In' button
+     *  4. Validate user is not logged in and "Password field is empty" error is displayed
+     */
+
     @Test
     public void LoginTestWithEmptyPasswordFirefox () {
         System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
