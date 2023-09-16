@@ -21,7 +21,7 @@ public class GithubLoginTest {
 
     @Test
     public void positiveLoginTestGoogle () {
-        System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
         ChromeDriver driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
@@ -50,7 +50,7 @@ public class GithubLoginTest {
 
     @Test
     public void positiveLoginTestFirefox () {
-        System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
         FirefoxDriver driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
@@ -79,7 +79,7 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithWrongCredsGoogle () {
-        System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
         ChromeDriver driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
@@ -108,7 +108,7 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithWrongCredsFirefox () {
-        System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
         FirefoxDriver driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
@@ -136,7 +136,7 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithEmptyPasswordGoogle () {
-        System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
         ChromeDriver driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
@@ -150,8 +150,7 @@ public class GithubLoginTest {
         signInElement.click();
 
         By locatorOfPasswordElement = By.className("(js-flash-alert)");
-        WebDriver driver2;
-        SeleniumActions actions = new SeleniumActions(driver2);
+        SeleniumActions actions = new SeleniumActions(driver);
         boolean isLocatorOfPasswordElementDisplayed = actions.isDisplayed(locatorOfPasswordElement, 5);
         Assert.assertTrue(isLocatorOfPasswordElementDisplayed);
 
