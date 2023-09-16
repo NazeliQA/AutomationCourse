@@ -1,13 +1,16 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class LoginTest21 {
+public class GithubLoginTest {
+    //This method validates that login is successful with correct data on Google
     @Test
-    public void positiveLoginGoogle () {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+    public void positiveLoginTestGoogle () {
+        System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
         ChromeDriver driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
@@ -20,17 +23,12 @@ public class LoginTest21 {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         driver.quit();
     }
-
+    //This method validates that login is successful with correct data on Firefox
     @Test
-    public void positiveLoginFirefox () {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
+    public void positiveLoginTestFirefox () {
+        System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
         FirefoxDriver driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
@@ -43,17 +41,12 @@ public class LoginTest21 {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         driver.quit();
     }
-
+    //This method validates that login is not successful with incorrect data on Google
     @Test
-    public void negativeLoginGoogle () {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+    public void LoginTestWithWrongCredsGoogle () {
+        System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
         ChromeDriver driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
@@ -66,17 +59,12 @@ public class LoginTest21 {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         driver.quit();
     }
-
+    //This method validates that login is not successful with incorrect data on Firefox
     @Test
-    public void negativeLoginFirefox () {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
+    public void LoginTestWithWrongCredsFirefox () {
+        System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
         FirefoxDriver driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
@@ -89,17 +77,13 @@ public class LoginTest21 {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         driver.quit();
     }
+    //This method validates that login is not successful with empty password on Google
 
     @Test
-    public void negativeLoginGoogle2 () {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+    public void LoginTestWithEmptyPasswordGoogle () {
+        System.setProperty("web-driver.chrome.driver", "src/test/resources/chromedriver");
         ChromeDriver driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
@@ -112,17 +96,18 @@ public class LoginTest21 {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        By locatorOfPasswordElement = By.className("(js-flash-alert)");
+        WebDriver driver2;
+        SeleniumActions actions = new SeleniumActions(driver2);
+        boolean isLocatorOfPasswordElementDisplayed = actions.isDisplayed(locatorOfPasswordElement, 5);
+        Assert.assertTrue(isLocatorOfPasswordElementDisplayed);
+
         driver.quit();
     }
-
+    //This method validates that login is not successful with empty password on Firefox
     @Test
-    public void negativeLoginFirefox2 () {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
+    public void LoginTestWithEmptyPasswordFirefox () {
+        System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
         FirefoxDriver driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
@@ -135,12 +120,6 @@ public class LoginTest21 {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         driver.quit();
     }
-
 }
