@@ -39,7 +39,6 @@ public class GithubLoginTest {
         SeleniumActions actions = new SeleniumActions(driver);
         boolean isLocatorOfAvatarElementDisplayed = actions.isDisplayed(locatorOfAvatarElement, 10);
         Assert.assertTrue(isLocatorOfAvatarElementDisplayed);
-        Assert.assertTrue(isLocatorOfAvatarElementDisplayed);
 
         driver.quit();
     }
@@ -69,6 +68,13 @@ public class GithubLoginTest {
 
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
+
+        //wait up 10 sec till the avatar element is displayed
+        By locatorOfAvatarElement = By.cssSelector(".Button-label .avatar.circle");
+        SeleniumActions actions = new SeleniumActions(driver);
+        boolean isLocatorOfAvatarElementDisplayed = actions.isDisplayed(locatorOfAvatarElement, 10);
+        Assert.assertTrue(isLocatorOfAvatarElementDisplayed);
+
 
         driver.quit();
     }
@@ -156,10 +162,9 @@ public class GithubLoginTest {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
-        By locatorOfPasswordElement = By.className("(js-flash-alert)");
         SeleniumActions actions = new SeleniumActions(driver);
-        boolean isLocatorOfPasswordElementDisplayed = actions.isDisplayed(locatorOfPasswordElement, 5);
-        Assert.assertTrue(isLocatorOfPasswordElementDisplayed);
+        boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
+        Assert.assertTrue(isDisplayed);
 
         driver.quit();
     }
@@ -176,7 +181,7 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithEmptyPasswordFirefox () {
-        System.setProperty("web-driver.gecko.driver", "src/test/resources/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
         FirefoxDriver driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
@@ -188,6 +193,10 @@ public class GithubLoginTest {
 
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
+
+        SeleniumActions actions = new SeleniumActions(driver);
+        boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
+        Assert.assertTrue(isDisplayed);
 
         driver.quit();
     }
