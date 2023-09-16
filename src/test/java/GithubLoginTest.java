@@ -34,6 +34,13 @@ public class GithubLoginTest {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
+        //wait up 10 sec till the avatar element is displayed
+        By locatorOfAvatarElement = By.cssSelector(".Button-label .avatar.circle");
+        SeleniumActions actions = new SeleniumActions(driver);
+        boolean isLocatorOfAvatarElementDisplayed = actions.isDisplayed(locatorOfAvatarElement, 10);
+        Assert.assertTrue(isLocatorOfAvatarElementDisplayed);
+        Assert.assertTrue(isLocatorOfAvatarElementDisplayed);
+
         driver.quit();
     }
 
