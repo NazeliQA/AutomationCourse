@@ -105,6 +105,13 @@ public class GithubLoginTest {
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
 
+        SeleniumActions actions = new SeleniumActions(driver);
+        boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
+        Assert.assertTrue(isDisplayed);
+
+        WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
+        Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
+
         driver.quit();
     }
 
@@ -133,6 +140,13 @@ public class GithubLoginTest {
 
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();
+
+        SeleniumActions actions = new SeleniumActions(driver);
+        boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
+        Assert.assertTrue(isDisplayed);
+
+        WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
+        Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
 
         driver.quit();
     }
@@ -166,6 +180,9 @@ public class GithubLoginTest {
         boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
         Assert.assertTrue(isDisplayed);
 
+        WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
+        Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
+
         driver.quit();
     }
 
@@ -197,6 +214,9 @@ public class GithubLoginTest {
         SeleniumActions actions = new SeleniumActions(driver);
         boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
         Assert.assertTrue(isDisplayed);
+
+        WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
+        Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
 
         driver.quit();
     }
