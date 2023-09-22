@@ -4,9 +4,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.HomePage;
+import pages.LoginPage;
+import util.SeleniumActions;
+import util.WebDriverUtil;
 
 public class GithubLoginTest {
+    @AfterMethod
+    public void afterMethod(){
+        WebDriverUtil.closeDriver();
+    }
+    @BeforeMethod
+    public void beforeMethod(){
+        driver = WebDriverUtil.getWebDriver();
+        driver.get("https://github.com/login");
+    }
+
+    private WebDriver driver;
 
     /**
      * This method is validating that user cannot log in with correct credentials.
@@ -21,26 +38,14 @@ public class GithubLoginTest {
 
     @Test
     public void positiveLoginTestGoogle () {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-        ChromeDriver driver = new ChromeDriver();
+        LoginPage loginPage = new LoginPage(driver);
         driver.get("https://github.com/login");
 
-        WebElement loginElement = driver.findElement(By.id("login_field"));
-        loginElement.sendKeys("TestAccountNazeli");
+        Assert.assertTrue(loginPage.isDisplayed());
+        loginPage.login("TestAccountNazeli", "Nazeli1994$");
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isDisplayed());
 
-        WebElement passwordElement = driver.findElement(By.id("password"));
-        passwordElement.sendKeys("Nazeli1994$");
-
-        WebElement signInElement = driver.findElement(By.name("commit"));
-        signInElement.click();
-
-        //wait up 10 sec till the avatar element is displayed
-        By locatorOfAvatarElement = By.cssSelector(".Button-label .avatar.circle");
-        SeleniumActions actions = new SeleniumActions(driver);
-        boolean isLocatorOfAvatarElementDisplayed = actions.isDisplayed(locatorOfAvatarElement, 10);
-        Assert.assertTrue(isLocatorOfAvatarElementDisplayed);
-
-        driver.quit();
     }
 
     /**
@@ -57,31 +62,21 @@ public class GithubLoginTest {
     @Test
     public void positiveLoginTestFirefox () {
         System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
-        FirefoxDriver driver = new FirefoxDriver();
+        driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
-        WebElement loginElement = driver.findElement(By.id("login_field"));
-        loginElement.sendKeys("TestAccountNazeli");
+        LoginPage loginPage = new LoginPage(driver);
+        driver.get("https://github.com/login");
 
-        WebElement passwordElement = driver.findElement(By.id("password"));
-        passwordElement.sendKeys("Nazeli1994$");
+        Assert.assertTrue(loginPage.isDisplayed());
+        loginPage.login("TestAccountNazeli", "Nazeli1994$");
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isDisplayed());
 
-        WebElement signInElement = driver.findElement(By.name("commit"));
-        signInElement.click();
-
-        //wait up 10 sec till the avatar element is displayed
-        By locatorOfAvatarElement = By.cssSelector(".Button-label .avatar.circle");
-        SeleniumActions actions = new SeleniumActions(driver);
-        boolean isLocatorOfAvatarElementDisplayed = actions.isDisplayed(locatorOfAvatarElement, 10);
-        Assert.assertTrue(isLocatorOfAvatarElementDisplayed);
-
-
-        driver.quit();
     }
 
     /**
      * This method is validating that user cannot log in with wrong credentials.
-     *
      * Steps:
      *  1. Open https://github.com/login page
      *  2. Input valid email
@@ -93,7 +88,7 @@ public class GithubLoginTest {
     @Test
     public void LoginTestWithWrongCredsGoogle () {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-        ChromeDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
         WebElement loginElement = driver.findElement(By.id("login_field"));
@@ -112,7 +107,6 @@ public class GithubLoginTest {
         WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
         Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
 
-        driver.quit();
     }
 
     /**
@@ -129,7 +123,7 @@ public class GithubLoginTest {
     @Test
     public void LoginTestWithWrongCredsFirefox () {
         System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
-        FirefoxDriver driver = new FirefoxDriver();
+        driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
         WebElement loginElement = driver.findElement(By.id("login_field"));
@@ -148,7 +142,6 @@ public class GithubLoginTest {
         WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
         Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
 
-        driver.quit();
     }
 
     /**
@@ -164,7 +157,7 @@ public class GithubLoginTest {
     @Test
     public void LoginTestWithEmptyPasswordGoogle () {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-        ChromeDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.get("https://github.com/login");
 
         WebElement loginElement = driver.findElement(By.id("login_field"));
@@ -183,7 +176,6 @@ public class GithubLoginTest {
         WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
         Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
 
-        driver.quit();
     }
 
     /**
@@ -199,17 +191,11 @@ public class GithubLoginTest {
     @Test
     public void LoginTestWithEmptyPasswordFirefox () {
         System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
-        FirefoxDriver driver = new FirefoxDriver();
+        driver = new FirefoxDriver();
         driver.get("https://github.com/login");
 
-        WebElement loginElement = driver.findElement(By.id("login_field"));
-        loginElement.sendKeys("TestAccountNazeli");
-
-        WebElement passwordElement = driver.findElement(By.id("password"));
-        passwordElement.sendKeys("");
-
-        WebElement signInElement = driver.findElement(By.name("commit"));
-        signInElement.click();
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("nazeli", "");
 
         SeleniumActions actions = new SeleniumActions(driver);
         boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
@@ -218,6 +204,5 @@ public class GithubLoginTest {
         WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
         Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
 
-        driver.quit();
     }
 }
