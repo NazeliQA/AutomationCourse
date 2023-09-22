@@ -13,9 +13,9 @@ import util.SeleniumActions;
 import util.WebDriverUtil;
 
 public class GithubLoginTest {
-    @AfterMethod
-    public void afterMethod(){
-        WebDriverUtil.closeDriver();
+   @AfterMethod
+   public void afterMethod(){
+      WebDriverUtil.closeDriver();
     }
     @BeforeMethod
     public void beforeMethod(){
@@ -60,11 +60,9 @@ public class GithubLoginTest {
      */
 
     @Test
-    public void positiveLoginTestFirefox () {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
-        driver = new FirefoxDriver();
-        driver.get("https://github.com/login");
 
+    public void positiveLoginTestFirefox ()
+    {
         LoginPage loginPage = new LoginPage(driver);
         driver.get("https://github.com/login");
 
@@ -87,22 +85,11 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithWrongCredsGoogle () {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-        driver = new ChromeDriver();
+        LoginPage loginPage = new LoginPage(driver);
         driver.get("https://github.com/login");
 
-        WebElement loginElement = driver.findElement(By.id("login_field"));
-        loginElement.sendKeys("TestAccountNazeli");
-
-        WebElement passwordElement = driver.findElement(By.id("password"));
-        passwordElement.sendKeys("Nazeli1995$");
-
-        WebElement signInElement = driver.findElement(By.name("commit"));
-        signInElement.click();
-
-        SeleniumActions actions = new SeleniumActions(driver);
-        boolean isDisplayed = actions.isDisplayed(By.className("js-flash-alert"), 10);
-        Assert.assertTrue(isDisplayed);
+        Assert.assertTrue(loginPage.isDisplayed());
+        loginPage.login("TestAccountNazeli", "Neli1994$");
 
         WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
         Assert.assertEquals(errorMsgElement.getText(),"Incorrect username or password.");
@@ -156,15 +143,11 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithEmptyPasswordGoogle () {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-        driver = new ChromeDriver();
+        LoginPage loginPage = new LoginPage(driver);
         driver.get("https://github.com/login");
 
-        WebElement loginElement = driver.findElement(By.id("login_field"));
-        loginElement.sendKeys("TestAccountNazeli");
-
-        WebElement passwordElement = driver.findElement(By.id("password"));
-        passwordElement.sendKeys("");
+        Assert.assertTrue(loginPage.isDisplayed());
+        loginPage.login("TestAccountNazeli", "");
 
         WebElement signInElement = driver.findElement(By.name("commit"));
         signInElement.click();

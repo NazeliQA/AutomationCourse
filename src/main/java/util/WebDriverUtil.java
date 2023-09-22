@@ -16,11 +16,11 @@ public class WebDriverUtil {
         String browserType = "chrome";
         switch (browserType) {
             case "chrome" :
-                System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
                 driver = new ChromeDriver();
                 break;
             case "firefox" :
-                System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe");
+                System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
                 driver = new FirefoxDriver();
                 break;
             default:
