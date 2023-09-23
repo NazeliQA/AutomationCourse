@@ -13,6 +13,8 @@ import util.SeleniumActions;
 import util.WebDriverUtil;
 
 public class GithubLoginTest {
+    private WebDriver driver;
+    private LoginPage loginPage;
    @AfterMethod
    public void afterMethod(){
       WebDriverUtil.closeDriver();
@@ -21,9 +23,9 @@ public class GithubLoginTest {
     public void beforeMethod(){
         driver = WebDriverUtil.getWebDriver();
         driver.get("https://github.com/login");
+        loginPage=new LoginPage(driver);
+        Assert.assertTrue(loginPage.isDisplayed());
     }
-
-    private WebDriver driver;
 
     /**
      * This method is validating that user cannot log in with correct credentials.
@@ -38,10 +40,6 @@ public class GithubLoginTest {
 
     @Test
     public void positiveLoginTestGoogle () {
-        LoginPage loginPage = new LoginPage(driver);
-        driver.get("https://github.com/login");
-
-        Assert.assertTrue(loginPage.isDisplayed());
         loginPage.login("TestAccountNazeli", "Nazeli1994$");
         HomePage homePage = new HomePage(driver);
         Assert.assertTrue(homePage.isDisplayed());
@@ -85,10 +83,6 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithWrongCredsGoogle () {
-        LoginPage loginPage = new LoginPage(driver);
-        driver.get("https://github.com/login");
-
-        Assert.assertTrue(loginPage.isDisplayed());
         loginPage.login("TestAccountNazeli", "Neli1994$");
 
         WebElement errorMsgElement = driver.findElement(By.className("js-flash-alert"));
@@ -143,10 +137,6 @@ public class GithubLoginTest {
 
     @Test
     public void LoginTestWithEmptyPasswordGoogle () {
-        LoginPage loginPage = new LoginPage(driver);
-        driver.get("https://github.com/login");
-
-        Assert.assertTrue(loginPage.isDisplayed());
         loginPage.login("TestAccountNazeli", "");
 
         WebElement signInElement = driver.findElement(By.name("commit"));
